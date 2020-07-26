@@ -54,6 +54,7 @@ class ProfileController extends AbstractController
         if (count($errors) > 0) {
             return $this->render('profile/index.html.twig', [
                 'user' => $user,
+                'errors' => $errors,
             ]);
         }
 
