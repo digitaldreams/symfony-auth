@@ -25,9 +25,9 @@
     </nav>
 </div>
 <div class="absolute shadow right-0 w-56 p-3 mt-1 bg-white rounded hidden" id="dropdown-container">
-    <a class="block p-1 hover:bg-indigo-500 hover:text-white" href="">Profile</a>
+    <a class="block p-1 hover:bg-indigo-500 hover:text-white" href="{{ path('profile') }}">Profile</a>
     <a class="block p-1 hover:bg-indigo-500 hover:text-white" href="">Password Change</a>
-    <a class="block p-1 hover:bg-indigo-500 hover:text-white" href="">Logout</a>
+    <a class="block p-1 hover:bg-indigo-500 hover:text-white" href="{{ path('app_logout') }}">Logout</a>
 </div>
 <main class="container mx-auto p-5">
 
@@ -35,9 +35,6 @@
         <ul class="col-span-3 divide-white rounded">
             <li class="bg-gray-400 p-3 border-b-2">
                 <a href="{{ path('home') }}">Home</a>
-            </li>
-            <li class="bg-gray-400 p-3 border-b-2">
-                <a href="">{{ app.user.name }}</a>
             </li>
             <li class="bg-gray-400 p-3 border-b-2">
                 <a href="{{ path('app_logout') }}">Logout</a>
@@ -67,8 +64,8 @@
 {{ encore_entry_script_tags('app') }}
 {% block javascripts %}{% endblock %}
 <script type="text/javascript">
-    document.querySelector("#dropdown-initiator").addEventListener("click",function(event){
-       document.querySelector("#dropdown-container").classList.toggle("hidden")
+    document.querySelector("#dropdown-initiator").addEventListener("click", function (event) {
+        document.querySelector("#dropdown-container").classList.toggle("hidden")
     });
 </script>
 </body>

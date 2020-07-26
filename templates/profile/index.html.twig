@@ -1,0 +1,36 @@
+{% extends 'app.html.twig' %}
+
+{% block title %}Hello ProfileController!{% endblock %}
+
+{% block body %}
+
+    <div class="example-wrapper">
+        <form action="{{ path('profile_update') }}" method="post">
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+            >
+            <div class="m-3">
+                <label for="name">Name</label>
+                <input type="text" class="w-full bg-gray-100 border-gray-500 border p-3 rounded focus:bg-white"
+                       name="name" id="name"
+                       value="{{ user.name }}" required>
+            </div>
+            <div class="m-3">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username"
+                       class="w-full bg-gray-100 border-gray-500 border p-3 rounded focus:bg-white"
+                       value="{{ user.username }}" required>
+            </div>
+            <div class="m-3">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email"
+                       class="w-full bg-gray-100 border-gray-500 border p-3 rounded focus:bg-white"
+                       value="{{ user.email }}" required>
+            </div>
+            <div class="m-3 text-right">
+                <input type="submit" value="Save" class="bg-green-600 text-white p-3 rounded w-24">
+            </div>
+        </form>
+
+    </div>
+{% endblock %}
