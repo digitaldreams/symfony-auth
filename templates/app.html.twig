@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {{ encore_entry_link_tags('app') }}
+    {% block stylesheets %}{% endblock %}
+</head>
+<body class="">
+<div class="bg-blue-800">
+    <nav class="xl:container mx-auto p-3">
+        <div class="flex justify-between">
+            <ul class="text-white flex">
+                <li class="flex-1">
+                    <a href="">Home</a>
+                </li>
+            </ul>
+            <div class="">
+                <button class="block overflow-hidden rounded-full" id="dropdown-initiator">
+                    <img class="w-8 h-8 object-center" src="{{ asset('images/default.jpg') }}"/>
+                </button>
+
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="absolute shadow right-0 w-56 p-3 mt-1 bg-white rounded hidden" id="dropdown-container">
+    <a class="block p-1 hover:bg-indigo-500 hover:text-white" href="">Profile</a>
+    <a class="block p-1 hover:bg-indigo-500 hover:text-white" href="">Password Change</a>
+    <a class="block p-1 hover:bg-indigo-500 hover:text-white" href="">Logout</a>
+</div>
+<main class="container mx-auto p-5">
+
+    <div class="grid grid-cols-12 gap-4">
+        <ul class="col-span-3 divide-white rounded">
+            <li class="bg-gray-400 p-3 border-b-2">
+                <a href="{{ path('home') }}">Home</a>
+            </li>
+            <li class="bg-gray-400 p-3 border-b-2">
+                <a href="">{{ app.user.name }}</a>
+            </li>
+            <li class="bg-gray-400 p-3 border-b-2">
+                <a href="{{ path('app_logout') }}">Logout</a>
+            </li>
+        </ul>
+        <div class="col-span-9">
+            {% if(errors is defined) %}
+                {% if(errors|length > 0) %}
+                    <ul class="border divide-black">
+
+                        {% for error in errors %}
+
+                            <li class="bg-red-300 text-red-900 p-3 m-2"><b>{{ error.propertyPath }}</b>
+                                - {{ error.message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endif %}
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+
+
+</main>
+
+{{ encore_entry_script_tags('app') }}
+{% block javascripts %}{% endblock %}
+<script type="text/javascript">
+    document.querySelector("#dropdown-initiator").addEventListener("click",function(event){
+       document.querySelector("#dropdown-container").classList.toggle("hidden")
+    });
+</script>
+</body>
+</html>
