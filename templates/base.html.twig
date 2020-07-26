@@ -17,6 +17,18 @@
     </nav>
 </div>
 <main class="container mx-auto p-5">
+    {% if(errors is defined) %}
+        {% if(errors|length > 0) %}
+            <ul class="border divide-black">
+
+                {% for error in errors %}
+
+                    <li class="bg-red-300 text-red-900 p-3 m-2"><b>{{ error.propertyPath }}</b> - {{ error.message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
     {% block body %}{% endblock %}
 </main>
 
