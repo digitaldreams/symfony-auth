@@ -73,9 +73,10 @@ Encore
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
 ;
+
 Encore.enablePostCssLoader(function(options) {
     options.config = {
         path: 'postcss.config.js'
     }
-})
+});
 module.exports = Encore.getWebpackConfig();

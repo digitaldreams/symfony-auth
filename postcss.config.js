@@ -2,7 +2,7 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
 
     // Specify the paths to all of the template files in your project
     content: [
-        './templates/**/*.html.twig',
+        './templates/**/*.twig',
     ],
 
     // This is the function used to extract class names from your templates
@@ -15,7 +15,7 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
 
         return broadMatches.concat(innerMatches)
     }
-})
+});
 
 module.exports = {
     plugins: [
@@ -23,4 +23,4 @@ module.exports = {
         require('autoprefixer'),
         purgecss,
     ]
-}
+};
