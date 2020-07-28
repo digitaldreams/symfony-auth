@@ -1,0 +1,27 @@
+{% extends 'app.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+    <div>
+        <form>
+            <input type="search" class="bg-gray-300 placeholder-black rounded border border-gray-500 w-full p-3 focus:bg-white"
+                   placeholder="search user by name, username or email.">
+
+        </form>
+    </div>
+    <div class="grid grid-cols-3 gap4">
+        {% for user in users %}
+            <div class="max-w-sm rounded overflow-hidden shadow-lg m-5">
+                <img class="w-full h-32" src="{{ user.avatar }}" alt="Sunset in the mountains">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2">{{ user.name }}</div>
+                    <p>{{ user.email }}</p>
+                </div>
+                <div class="px-6 py-4">
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{ user.roles|join(", ") }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -36,6 +36,11 @@
             <li class="bg-gray-400 p-3 border-b-2">
                 <a href="{{ path('home') }}">Home</a>
             </li>
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="bg-gray-400 p-3 border-b-2">
+                    <a href="{{ path('user') }}">Users</a>
+                </li>
+            {% endif %}
             <li class="bg-gray-400 p-3 border-b-2">
                 <a href="{{ path('app_logout') }}">Logout</a>
             </li>
