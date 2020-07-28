@@ -1,0 +1,30 @@
+{% extends 'app.html.twig' %}
+
+{% block title %}Hello PassowordChangeController!{% endblock %}
+
+{% block body %}
+    <form action="{{ path('password_save') }}" method="post" class="w-full">
+        <div class="m-3">
+            <label for="old_password">Old Password</label>
+            <input type="password" name="old_password"
+                   class="bg-gray-300 p-3 border-gray-600 focus:bg-white placeholder-black rounded w-full"
+                   placeholder="Your current password" required>
+        </div>
+        <div class="m-3">
+            <label for="new_password">New Password</label>
+            <input type="password" name="new_password"
+                   class="bg-gray-300 p-3 border-gray-600 focus:bg-white placeholder-black rounded w-full"
+                   placeholder="Type your new password" minlength="6" required>
+            <small class="text-gray-400">Password must be 6 character long.</small>
+        </div>
+        <div class="m-3">
+            <label for="confirm_new_password">Confirm New Password</label>
+            <input type="password" name="confirm_new_password"
+                   class="bg-gray-300 p-3 border-gray-600 focus:bg-white placeholder-black rounded w-full"
+                   placeholder="Type your new password again" minlength="6" required>
+        </div>
+        <div class="text-right">
+            <input type="submit" value="Change Password" class="bg-green-600 p-3 text-white rounded cursor-pointer">
+        </div>
+    </form>
+{% endblock %}

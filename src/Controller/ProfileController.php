@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,8 +19,10 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile", name="profile")
      * @param \Symfony\Component\Security\Core\User\UserInterface $user
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      */
     public function index(UserInterface $user)
     {
@@ -33,6 +36,7 @@ class ProfileController extends AbstractController
      * @param \Symfony\Component\HttpFoundation\Request                  $request
      * @param \Doctrine\ORM\EntityManagerInterface                       $entityManager
      * @param \Symfony\Component\Validator\Validator\ValidatorInterface  $validator
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      *
      * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $csrfTokenManager
      *
