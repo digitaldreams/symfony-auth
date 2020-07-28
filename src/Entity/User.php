@@ -4,9 +4,9 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -144,7 +144,7 @@ class User implements UserInterface
 
     public function getAvatar(): ?string
     {
-        return $this->avatar;
+        return !empty($this->avatar) ? $this->avatar : '/images/default.jpg';
     }
 
     public function setAvatar(?string $avatar): self
