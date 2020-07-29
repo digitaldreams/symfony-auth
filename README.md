@@ -1,6 +1,7 @@
 # symfony5-auth
 Symfony 5 basic authentication system
-###Installation 
+
+### Installation 
 **Step 1**: Setup your `.env` file 
 ``` 
 MAILER_DSN=smtp://user:pass@smtp.example.com:port
@@ -15,11 +16,12 @@ FROM_EMAIL=info@example.com
 php bin/console doctrine:database:create
 ```
 **Step 3**:  Lets run the migrations. 
+
 ```
 php bin/console doctrine:migrations:migrate
 php bin/console doctrine:fixtures:load
-
 ```
+
 It will create necessary tables into your database and create a admin user with `username` and `password` is **admin**
 
 Step 4: Frontend Setup.
