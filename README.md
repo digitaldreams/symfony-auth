@@ -40,3 +40,15 @@ npm run build
 6. Admin notify for new user registration
 7. Profile info change for logged in user
 8. Users list page for Admin user. 
+
+### Login Form
+
+<img src="https://i.ibb.co/dP9CCjF/Screenshot-2020-07-29-at-10-19-28-PM.png" alt="Screenshot-2020-07-29-at-10-19-28-PM" border="0">
+
+### Profile Page
+
+<img src="https://i.ibb.co/8c4t7wb/Screenshot-2020-07-29-at-10-23-17-PM.png" alt="Screenshot-2020-07-29-at-10-23-17-PM" border="0">
+
+### Users List (admin)
+
+<img src="https://i.ibb.co/0V6fTv3/Screenshot-2020-07-29-at-10-24-11-PM.png" alt="Screenshot-2020-07-29-at-10-24-11-PM" border="0">
