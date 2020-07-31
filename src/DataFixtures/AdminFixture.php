@@ -34,5 +34,14 @@ class AdminFixture extends Fixture
         $admin->setRoles(['ROLE_ADMIN']);
         $manager->persist($admin);
         $manager->flush();
+
+        $user = new User();
+        $user->setName('System User');
+        $user->setEmail('user@user.com');
+        $user->setUsername('user');
+        $user->setPassword($this->passwordEncoder->encodePassword($admin, 'user'));
+        $user->setRoles(['ROLE_USER']);
+        $manager->persist($user);
+        $manager->flush();
     }
 }
