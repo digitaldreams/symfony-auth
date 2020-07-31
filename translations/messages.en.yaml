@@ -1,0 +1,8 @@
+password:
+  change: Change Your Password
+  old: Old Password
+  currrent: Current Password
+  new: New Password
+  type_new: Type your new password
+  confirm: Confirm your new password
+  length: Password must be 6 digit long
