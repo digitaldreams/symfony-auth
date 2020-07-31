@@ -29,6 +29,12 @@ Step 4: Frontend Setup.
 npm install
 npm run build
 ```
+
+Step 5: Run phpunit test
+```
+php bin/phpunit
+``` 
+
 **Congratulations! your site is now ready.**
 
 ### Features
