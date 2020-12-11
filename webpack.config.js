@@ -75,7 +75,7 @@ Encore
 ;
 
 Encore.enablePostCssLoader(function(options) {
-    options.config = {
+    options.postcssOptions = {
         path: 'postcss.config.js'
     }
 });
