@@ -3,7 +3,7 @@
         "@symfony/webpack-encore": "^0.30.0",
         "autoprefixer": "^10.0.2",
         "core-js": "^3.8.1",
-        "node-sass": "^4.14.1",
+        "node-sass": "^7.0.0",
         "postcss": "^8.2.10",
         "postcss-loader": ">=4.0.3",
         "regenerator-runtime": "^0.13.2",
