@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AdminFixture extends Fixture
 {
@@ -14,9 +14,9 @@ class AdminFixture extends Fixture
     /**
      * UserFixture constructor.
      *
-     * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $passwordEncoder
+     * @param \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder
      */
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(UserPasswordHasherInterface $passwordEncoder)
     {
         $this->passwordEncoder = $passwordEncoder;
     }
@@ -30,7 +30,7 @@ class AdminFixture extends Fixture
         $admin->setName('System Admin');
         $admin->setEmail('admin@admin.com');
         $admin->setUsername('admin');
-        $admin->setPassword($this->passwordEncoder->encodePassword($admin, 'admin'));
+        $admin->setPassword($this->passwordEncoder->hashPassword($admin, 'admin'));
         $admin->setRoles(['ROLE_ADMIN']);
         $manager->persist($admin);
         $manager->flush();
@@ -39,7 +39,7 @@ class AdminFixture extends Fixture
         $user->setName('System User');
         $user->setEmail('user@user.com');
         $user->setUsername('user');
-        $user->setPassword($this->passwordEncoder->encodePassword($admin, 'user'));
+        $user->setPassword($this->passwordEncoder->hashPassword($admin, 'user'));
         $user->setRoles(['ROLE_USER']);
         $manager->persist($user);
         $manager->flush();

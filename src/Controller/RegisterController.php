@@ -9,8 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class RegisterController extends AbstractController
 {
@@ -29,7 +29,7 @@ class RegisterController extends AbstractController
      * @Route("/register/store", name="register",methods="POST")
      * @param \Symfony\Component\HttpFoundation\Request                             $request
      * @param \Symfony\Component\Validator\Validator\ValidatorInterface             $validator
-     * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $passwordEncoder
+     * @param \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder
      *
      * @param \Doctrine\ORM\EntityManagerInterface                                  $entityManager
      *
@@ -37,7 +37,7 @@ class RegisterController extends AbstractController
      *
      * @return string
      */
-    public function store(Request $request, ValidatorInterface $validator, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager, EventDispatcherInterface $dispatcher)
+    public function store(Request $request, ValidatorInterface $validator, UserPasswordHasherInterface $passwordEncoder, EntityManagerInterface $entityManager, EventDispatcherInterface $dispatcher)
     {
         $user = new User();
         $user->setName($request->get('name'));
@@ -54,7 +54,7 @@ class RegisterController extends AbstractController
             );
         }
 
-        $user->setPassword($passwordEncoder->encodePassword($user, $request->get('password')));
+        $user->setPassword($passwordEncoder->hashPassword($user, $request->get('password')));
         $entityManager->persist($user);
         $entityManager->flush();
 
