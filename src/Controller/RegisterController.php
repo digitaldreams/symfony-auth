@@ -14,9 +14,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class RegisterController extends AbstractController
 {
-    /**
-     * @Route("/register", name="register_form",methods="GET|HEAD")
-     */
+    #[Route("/register", name: "register_form", methods: ["GET", "HEAD"])]
     public function index()
     {
         return $this->render('register/index.html.twig', [
@@ -25,20 +23,15 @@ class RegisterController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/register/store", name="register",methods="POST")
-     * @param \Symfony\Component\HttpFoundation\Request                             $request
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface             $validator
-     * @param \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder
-     *
-     * @param \Doctrine\ORM\EntityManagerInterface                                  $entityManager
-     *
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface           $dispatcher
-     *
-     * @return string
-     */
-    public function store(Request $request, ValidatorInterface $validator, UserPasswordHasherInterface $passwordEncoder, EntityManagerInterface $entityManager, EventDispatcherInterface $dispatcher)
-    {
+
+    #[Route("/register/store", name: "register", methods: "POST")]
+    public function store(
+        Request $request,
+        ValidatorInterface $validator,
+        UserPasswordHasherInterface $passwordEncoder,
+        EntityManagerInterface $entityManager,
+        EventDispatcherInterface $dispatcher
+    ) {
         $user = new User();
         $user->setName($request->get('name'));
         $user->setEmail($request->get('email'));
@@ -46,7 +39,8 @@ class RegisterController extends AbstractController
 
         $errors = $validator->validate($user);
         if (count($errors) > 0) {
-            return $this->render('register/index.html.twig',
+            return $this->render(
+                'register/index.html.twig',
                 [
                     'errors' => $errors,
                     'user' => $user,

@@ -10,15 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    /**
-     * @Route("/user", name="user")
-     * @IsGranted("ROLE_ADMIN")
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \App\Repository\UserRepository            $userRepository
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
+    #[Route("/user", name:"user")]
     public function index(Request $request, UserRepository $userRepository)
     {
         return $this->render('user/index.html.twig', [

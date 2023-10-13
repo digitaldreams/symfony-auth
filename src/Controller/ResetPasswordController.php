@@ -32,11 +32,7 @@ class ResetPasswordController extends AbstractController
         $this->resetPasswordHelper = $resetPasswordHelper;
     }
 
-    /**
-     * Display & process form to request a password reset.
-     *
-     * @Route("", name="app_forgot_password_request")
-     */
+    #[Route("password/forget", name: "app_forgot_password_request")]
     public function request(Request $request, MailerInterface $mailer): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
@@ -54,11 +50,7 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
-    /**
-     * Confirmation page after a user has requested a password reset.
-     *
-     * @Route("/check-email", name="app_check_email")
-     */
+    #[Route("/check-email", name: "app_check_email")]
     public function checkEmail(): Response
     {
         // We prevent users from directly accessing this page
@@ -71,13 +63,12 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
-    /**
-     * Validates and process the reset URL that the user clicked in their email.
-     *
-     * @Route("/reset/{token}", name="app_reset_password")
-     */
-    public function reset(Request $request, UserPasswordHasherInterface $passwordEncoder, string $token = null): Response
-    {
+    #[Route("/reset/{token}", name:"app_reset_password")]
+    public function reset(
+        Request $request,
+        UserPasswordHasherInterface $passwordEncoder,
+        string $token = null
+    ): Response {
         if ($token) {
             // We store the token in session and remove it from the URL, to avoid the URL being
             // loaded in a browser and potentially leaking the token to 3rd party JavaScript.
@@ -94,10 +85,13 @@ class ResetPasswordController extends AbstractController
         try {
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
-            $this->addFlash('reset_password_error', sprintf(
-                'There was a problem validating your reset request - %s',
-                $e->getReason()
-            ));
+            $this->addFlash(
+                'reset_password_error',
+                sprintf(
+                    'There was a problem validating your reset request - %s',
+                    $e->getReason()
+                )
+            );
 
             return $this->redirectToRoute('app_forgot_password_request');
         }
@@ -167,8 +161,7 @@ class ResetPasswordController extends AbstractController
             ->context([
                 'resetToken' => $resetToken,
                 'tokenLifetime' => $this->resetPasswordHelper->getTokenLifetime(),
-            ])
-        ;
+            ]);
 
         $mailer->send($email);
 

@@ -18,37 +18,23 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProfileController extends AbstractController
 {
-
-    /**
-     * @Route("/profile", name="profile")
-     * @param \Symfony\Component\Security\Core\User\UserInterface $user
-     * @IsGranted("IS_AUTHENTICATED_FULLY")
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     */
+    #[Route("/profile", name: "profile")]
+    #[IsGranted("IS_AUTHENTICATED_FULLY")]
     public function index(UserInterface $user)
     {
         return $this->render('profile/index.html.twig', [
             'user' => $user,
         ]);
     }
-
-    /**
-     * @Route("/profile/update", name="profile_update")
-     * @param \Symfony\Component\HttpFoundation\Request                  $request
-     * @param \Doctrine\ORM\EntityManagerInterface                       $entityManager
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface  $validator
-     * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $csrfTokenManager
-     *
-     * @param \Symfony\Component\String\Slugger\SluggerInterface         $slugger
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @IsGranted("IS_AUTHENTICATED_FULLY")
-     *
-     */
-    public function store(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator, CsrfTokenManagerInterface $csrfTokenManager, SluggerInterface $slugger)
-    {
+    #[Route("/profile/update", name: "profile_update")]
+    #[IsGranted("IS_AUTHENTICATED_FULLY")]
+    public function store(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        ValidatorInterface $validator,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        SluggerInterface $slugger
+    ) {
         $fileErrors = [];
         $token = new CsrfToken('authenticate', $request->get('_csrf_token'));
         if (!$csrfTokenManager->isTokenValid($token)) {
@@ -96,7 +82,6 @@ class ProfileController extends AbstractController
 
         $errors = $validator->validate($user);
         if (count($errors) > 0) {
-
             return $this->render('profile/index.html.twig', [
                 'user' => $user,
                 'errors' => $errors,
@@ -107,6 +92,5 @@ class ProfileController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('home');
-
     }
 }

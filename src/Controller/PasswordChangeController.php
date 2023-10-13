@@ -14,27 +14,21 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PasswordChangeController extends AbstractController
 {
-    /**
-     * @Route("/password/change", name="password_change",methods="GET|HEAD")
-     * @IsGranted("IS_AUTHENTICATED_FULLY")
-     */
+
+    #[Route("/password/change", name: "password_change", methods: ["GET", "HEAD"])]
+    #[IsGranted("IS_AUTHENTICATED_FULLY")]
     public function index()
     {
         return $this->render('password_change/index.html.twig');
     }
 
-    /**
-     * @Route("/password_save/save", name="password_save",methods="POST|PUT")
-     * @param \Symfony\Component\HttpFoundation\Request                             $request
-     * @param \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface             $validator
-     *
-     * @param \Doctrine\ORM\EntityManagerInterface                                  $entityManager
-     *
-     * @return \Symfony\Component\HttpFoundation\Response|\Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function change(Request $request, UserPasswordHasherInterface $passwordEncoder, ValidatorInterface $validator, EntityManagerInterface $entityManager)
-    {
+    #[Route("/password_save/save", name: "password_save", methods: ["POST", "PUT"])]
+    public function change(
+        Request $request,
+        UserPasswordHasherInterface $passwordEncoder,
+        ValidatorInterface $validator,
+        EntityManagerInterface $entityManager
+    ) {
         $input = $request->request->all();
         $constraint = new Assert\Collection([
             'old_password' => new UserPassword(["message" => "Wrong value for your current password"]),
