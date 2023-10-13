@@ -14,7 +14,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class RegisterController extends AbstractController
 {
-    #[Route("/register", name: "register_form", methods: ["GET", "HEAD"])]
+    #[Route("/auth/register", name: "register_form", methods: ["GET", "HEAD"])]
     public function index()
     {
         return $this->render('register/index.html.twig', [
@@ -24,7 +24,7 @@ class RegisterController extends AbstractController
     }
 
 
-    #[Route("/register/store", name: "register", methods: "POST")]
+    #[Route("/auth/register/store", name: "register", methods: "POST")]
     public function store(
         Request $request,
         ValidatorInterface $validator,

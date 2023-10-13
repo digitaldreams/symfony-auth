@@ -15,14 +15,16 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class PasswordChangeController extends AbstractController
 {
 
-    #[Route("/password/change", name: "password_change", methods: ["GET", "HEAD"])]
+    #[Route("/app/password/change", name: "password_change", methods: ["GET", "HEAD"])]
     #[IsGranted("IS_AUTHENTICATED_FULLY")]
     public function index()
     {
         return $this->render('password_change/index.html.twig');
     }
 
-    #[Route("/password_save/save", name: "password_save", methods: ["POST", "PUT"])]
+    #[Route("/app/password/save", name: "password_save", methods: ["POST", "PUT"])]
+    #[IsGranted("IS_AUTHENTICATED_FULLY")]
+
     public function change(
         Request $request,
         UserPasswordHasherInterface $passwordEncoder,

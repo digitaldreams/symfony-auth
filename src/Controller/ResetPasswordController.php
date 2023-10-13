@@ -32,7 +32,7 @@ class ResetPasswordController extends AbstractController
         $this->resetPasswordHelper = $resetPasswordHelper;
     }
 
-    #[Route("password/forget", name: "app_forgot_password_request")]
+    #[Route("/auth/password/forget", name: "app_forgot_password_request")]
     public function request(Request $request, MailerInterface $mailer): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
@@ -50,7 +50,7 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
-    #[Route("/check-email", name: "app_check_email")]
+    #[Route("/auth/check-email", name: "app_check_email")]
     public function checkEmail(): Response
     {
         // We prevent users from directly accessing this page
@@ -63,7 +63,7 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
-    #[Route("/reset/{token}", name:"app_reset_password")]
+    #[Route("/auth/reset/{token}", name:"app_reset_password")]
     public function reset(
         Request $request,
         UserPasswordHasherInterface $passwordEncoder,

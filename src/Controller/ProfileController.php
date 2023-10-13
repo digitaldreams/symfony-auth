@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProfileController extends AbstractController
 {
-    #[Route("/profile", name: "profile")]
+    #[Route("/app/profile", name: "profile")]
     #[IsGranted("IS_AUTHENTICATED_FULLY")]
     public function index(UserInterface $user)
     {
@@ -26,7 +26,7 @@ class ProfileController extends AbstractController
             'user' => $user,
         ]);
     }
-    #[Route("/profile/update", name: "profile_update")]
+    #[Route("/app/profile/update", name: "profile_update")]
     #[IsGranted("IS_AUTHENTICATED_FULLY")]
     public function store(
         Request $request,
