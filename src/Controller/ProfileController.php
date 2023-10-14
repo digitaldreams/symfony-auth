@@ -19,7 +19,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ProfileController extends AbstractController
 {
     #[Route("/app/profile", name: "profile")]
-    #[IsGranted("IS_AUTHENTICATED_FULLY")]
     public function index(UserInterface $user)
     {
         return $this->render('profile/index.html.twig', [
@@ -27,7 +26,6 @@ class ProfileController extends AbstractController
         ]);
     }
     #[Route("/app/profile/update", name: "profile_update")]
-    #[IsGranted("IS_AUTHENTICATED_FULLY")]
     public function store(
         Request $request,
         EntityManagerInterface $entityManager,
