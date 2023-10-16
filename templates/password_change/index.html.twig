@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <form action="{{ path('password_save') }}" method="post" class="w-full">
+    <form  method="post" class="w-full">
         <div class="m-3">
             <label for="old_password">{{ 'password.old'|trans }}</label>
             <input type="password" name="old_password"
