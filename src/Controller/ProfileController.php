@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +19,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProfileController extends AbstractController
 {
-    #[Route("/app/profile", name: "profile")]
+    #[Route("/app/profile", name: "profile_show")]
     public function index(UserInterface $user)
     {
         return $this->render('profile/index.html.twig', [
@@ -26,6 +27,7 @@ class ProfileController extends AbstractController
         ]);
     }
     #[Route("/app/profile/update", name: "profile_update")]
+    #[Template('profile/index.html.twig')]
     public function store(
         Request $request,
         EntityManagerInterface $entityManager,

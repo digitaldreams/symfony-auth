@@ -12,7 +12,7 @@ readonly class PasswordChangeRequest
         public string $oldPassword,
         #[Assert\Length(['min' => 6])]
         #[Assert\NotCompromisedPassword]
-        #[Assert\PasswordStrength(minScore: Assert\PasswordStrength::STRENGTH_VERY_STRONG)]
+        #[Assert\PasswordStrength(minScore: Assert\PasswordStrength::STRENGTH_MEDIUM)]
         public string $newPassword,
         public string $confirmNewPassword
     ) {
