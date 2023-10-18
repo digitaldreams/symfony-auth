@@ -3,7 +3,7 @@
 {% block title %} Your Profile{% endblock %}
 
 {% block body %}
-    <form action="{{ path('profile_update') }}" method="post" enctype="multipart/form-data">
+    <form  method="post" enctype="multipart/form-data">
         <div class="grid grid-cols-12">
             <div class="col-span-3">
                 <img src="{{ app.user.avatar }}" class="rounded h-16 w-16 object-center rounded">

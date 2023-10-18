@@ -3,6 +3,8 @@
 namespace App\Validator;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -10,8 +12,11 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 class UniqueValueValidator extends ConstraintValidator
 {
-    public function __construct(private EntityManagerInterface $em)
-    {
+    public function __construct(
+        private EntityManagerInterface $em,
+        private RequestStack $requestStack,
+        private Security $security
+    ) {
     }
 
     public function validate(mixed $value, Constraint $constraint)
@@ -26,7 +31,17 @@ class UniqueValueValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, 'scalar');
         }
         $repository = $this->em->getRepository($constraint->entity);
-        $result = $repository->count([$constraint->field => $value]);
+        if ($method = $constraint->repositoryMethod) {
+            $user = $constraint->currentUser===true ? $this->security->getUser() : null;
+            $result = $repository->{$method}(
+                $constraint->field,
+                $value,
+                $this->requestStack->getCurrentRequest(),
+                $user
+            );
+        } else {
+            $result = $repository->count([$constraint->field => $value]);
+        }
         if ($result === 0) {
             return;
         }

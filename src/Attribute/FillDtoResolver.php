@@ -22,6 +22,8 @@ class FillDtoResolver implements ValueResolverInterface
             return [];
         }
 
+        $fillDto = $argument->getAttributesOfType(FillDto::class, ArgumentMetadata::IS_INSTANCEOF)[0];
+
         if ($argument->isVariadic()) {
             throw new \LogicException(
                 sprintf('Mapping variadic argument "$%s" is not supported.', $argument->getName())
@@ -29,12 +31,22 @@ class FillDtoResolver implements ValueResolverInterface
         }
         $reflectionClass = new \ReflectionClass($argument->getType());
         $dtoClass = $reflectionClass->newInstanceWithoutConstructor();
-        $paramBag = $request->getMethod() === 'POST' ? $request->request : $request->query;
-        foreach ($paramBag->all() as $property => $value) {
+
+        $queryParams = $request->query->all();
+        $requestParams = $request->request->all();
+        foreach (array_merge($queryParams, $requestParams) as $property => $value) {
             $attribute = u($property)->camel();
             if (property_exists($dtoClass, $attribute)) {
                 $reflectionProperty = $reflectionClass->getProperty($attribute);
                 $reflectionProperty->setValue($dtoClass, $value);
+            }
+        }
+        $files = $request->files->all();
+        foreach ($files as $fileKey => $file) {
+            $attribute = u($fileKey)->camel();
+            if (property_exists($dtoClass, $attribute)) {
+                $reflectionProperty = $reflectionClass->getProperty($attribute);
+                $reflectionProperty->setValue($dtoClass, $file);
             }
         }
 

@@ -5,6 +5,7 @@ namespace App\Persistence\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -42,6 +43,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
 
         return $user;
+    }
+
+    public function validate(string $field, mixed $value, Request $request, ?User $user): int
+    {
+        $builder = $this->createQueryBuilder('u')
+            ->select('count(u.id) as total')
+            ->andWhere("u.$field = :val")
+            ->setParameter('val', $value);
+
+        if ($user) {
+            $builder->andWhere('u.id !=:id')
+                ->setParameter('id', $user->getId());
+        }
+
+        return $builder->getQuery()->getSingleScalarResult();
     }
 
 
