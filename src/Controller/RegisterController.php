@@ -20,26 +20,16 @@ class RegisterController extends AbstractController
     {
     }
 
-    #[Route("/auth/register", name: "register_form", methods: ["GET", "HEAD"])]
-    public function index()
-    {
-        return $this->render('register/index.html.twig', [
-            'errors' => [],
-            'user' => new User(),
-        ]);
-    }
-
-
-    #[Route("/auth/register/store", name: "register", methods: "POST")]
+    #[Route("/auth/register", name: "register", methods: ["POST", "GET"])]
     #[Template('register/index.html.twig')]
     public function store(
         #[FillDto] CreateUserRequest $createUserRequest,
         Request $request,
         ValidatorInterface $validator,
     ) {
-        if ($request->getMethod() === 'POST') {
-            $user = new User();
+        $user = new User();
 
+        if ($request->getMethod() === 'POST') {
             $errors = $validator->validate($createUserRequest);
             if (count($errors) === 0) {
                 $user = $this->userService->execute($createUserRequest);
@@ -48,8 +38,8 @@ class RegisterController extends AbstractController
             }
         }
         return [
-            'errors' => $errors,
-            'user' => new User()
+            'errors' => $errors ?? [],
+            'user' => $user
         ];
     }
 }
