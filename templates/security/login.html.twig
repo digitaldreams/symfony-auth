@@ -11,7 +11,7 @@
 
         {% if app.user %}
             <div class="mb-3">
-                You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                You are logged in as {{ app.user.username }}, <a href="/logout">Logout</a>
             </div>
         {% endif %}
 
@@ -47,7 +47,7 @@
         </div>
     </form>
     <p class="text-gray-500 text-center">Does not have an account? <a class="font-bold"
-                                                                      href="{{ path('register_form') }}">Register
+                                                                      href="{{ path('register') }}">Register
             Now</a></p>
     <p class="text-gray-500 text-center mt-3">Forget your password? <a class="font-bold"
                                                                        href="{{ path('app_forgot_password_request') }}">Click

@@ -1,0 +1,13 @@
+password:
+  change: Change Your Password
+  old: Old Password
+  current: Current Password
+  new: New Password
+  type_new: Type your new password
+  confirm: Confirm your new password
+  length: Password must be 6 digit long
+  changed_successfully: Password changed successfully
+  enter_email: Enter your email address and we we will send you a link to reset your password.
+  email_sent: An email has been sent that contains a link that you can click to reset your password. This link will expire in {hour} hour(s)
+  send_email_btn: Send password reset email
+
