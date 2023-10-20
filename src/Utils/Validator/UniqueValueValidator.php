@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Validator;
+namespace App\Utils\Validator;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;

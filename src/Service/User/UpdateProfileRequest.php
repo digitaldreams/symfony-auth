@@ -3,9 +3,9 @@
 namespace App\Service\User;
 
 use App\Entity\User;
-use Symfony\Component\Validator\Constraints as Assert;
-use App\Validator\UniqueValue;
+use App\Utils\Validator\UniqueValue;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 readonly class UpdateProfileRequest
 {

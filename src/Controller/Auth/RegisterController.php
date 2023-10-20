@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Auth;
 
-use App\Attribute\FillDto;
 use App\Entity\User;
-use App\Events\UserRegisteredEvent;
 use App\Service\User\CreateUserRequest;
 use App\Service\User\CreateUserService;
+use App\Utils\Attribute\FillDto;
 use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
