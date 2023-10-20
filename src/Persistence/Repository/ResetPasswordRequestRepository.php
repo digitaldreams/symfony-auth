@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Persistence\Repository;
 
 use App\Entity\ResetPasswordRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

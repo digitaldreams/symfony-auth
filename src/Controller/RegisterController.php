@@ -2,64 +2,45 @@
 
 namespace App\Controller;
 
+use App\Attribute\FillDto;
 use App\Entity\User;
 use App\Events\UserRegisteredEvent;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\User\CreateUserRequest;
+use App\Service\User\CreateUserService;
+use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegisterController extends AbstractController
 {
-    /**
-     * @Route("/register", name="register_form",methods="GET|HEAD")
-     */
-    public function index()
+
+    public function __construct(private CreateUserService $userService, private TranslatorInterface $translator)
     {
-        return $this->render('register/index.html.twig', [
-            'errors' => [],
-            'user' => new User(),
-        ]);
     }
 
-    /**
-     * @Route("/register/store", name="register",methods="POST")
-     * @param \Symfony\Component\HttpFoundation\Request                             $request
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface             $validator
-     * @param \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder
-     *
-     * @param \Doctrine\ORM\EntityManagerInterface                                  $entityManager
-     *
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface           $dispatcher
-     *
-     * @return string
-     */
-    public function store(Request $request, ValidatorInterface $validator, UserPasswordHasherInterface $passwordEncoder, EntityManagerInterface $entityManager, EventDispatcherInterface $dispatcher)
-    {
+    #[Route("/auth/register", name: "register", methods: ["POST", "GET"])]
+    #[Template('register/index.html.twig')]
+    public function store(
+        #[FillDto] CreateUserRequest $createUserRequest,
+        Request $request,
+        ValidatorInterface $validator,
+    ) {
         $user = new User();
-        $user->setName($request->get('name'));
-        $user->setEmail($request->get('email'));
-        $user->setUsername($request->get('username'));
 
-        $errors = $validator->validate($user);
-        if (count($errors) > 0) {
-            return $this->render('register/index.html.twig',
-                [
-                    'errors' => $errors,
-                    'user' => $user,
-                ]
-            );
+        if ($request->getMethod() === 'POST') {
+            $errors = $validator->validate($createUserRequest);
+            if (count($errors) === 0) {
+                $user = $this->userService->execute($createUserRequest);
+                $this->addFlash('message', $this->translator->trans('user.registration_successful'));
+                return $this->redirectToRoute('app_login');
+            }
         }
-
-        $user->setPassword($passwordEncoder->hashPassword($user, $request->get('password')));
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        $dispatcher->dispatch(new UserRegisteredEvent($user), UserRegisteredEvent::NAME);
-
-        return $this->redirectToRoute('app_login');
+        return [
+            'errors' => $errors ?? [],
+            'user' => $user
+        ];
     }
 }

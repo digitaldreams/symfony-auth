@@ -25,9 +25,9 @@
     </nav>
 </div>
 <div class="absolute shadow right-0 w-56 p-3 mt-1 bg-white rounded hidden" id="dropdown-container">
-    <a class="block p-1 hover:bg-indigo-500 hover:text-white" href="{{ path('profile') }}">Profile</a>
+    <a class="block p-1 hover:bg-indigo-500 hover:text-white" href="{{ path('profile_show') }}">Profile</a>
     <a class="block p-1 hover:bg-indigo-500 hover:text-white" href="{{ path('password_change') }}">Password Change</a>
-    <a class="block p-1 hover:bg-indigo-500 hover:text-white" href="{{ path('app_logout') }}">Logout</a>
+    <a class="block p-1 hover:bg-indigo-500 hover:text-white" href="/logout">Logout</a>
 </div>
 <main class="container mx-auto p-5">
 
@@ -48,7 +48,7 @@
         <div class="col-span-9">
             {% if app.request.hasPreviousSession %}
                 {% for message in app.flashes('message') %}
-                    <p class="p-3 text-green-900 bg-green-900">{{ message }}</p>
+                    <p class="p-3 text-white bg-green-600">{{ message }}</p>
                 {% endfor %}
             {% endif %}
 
