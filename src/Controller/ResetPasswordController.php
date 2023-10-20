@@ -16,9 +16,12 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
+
+use function Symfony\Component\Translation\t;
 
 /**
  * @Route("/reset-password")
@@ -32,6 +35,7 @@ class ResetPasswordController extends AbstractController
         private SendResetPasswordEmailService $sendResetPasswordEmailService,
         private ResetPasswordHelperInterface $resetPasswordHelper,
         private UserRepository $userRepository,
+        private TranslatorInterface $translator
     ) {
     }
 
@@ -83,7 +87,7 @@ class ResetPasswordController extends AbstractController
 
         $token = $this->getTokenFromSession();
         if (null === $token) {
-            throw $this->createNotFoundException('No reset password token found in the URL or in the session.');
+            throw $this->createNotFoundException($this->translator->trans('password.no_token_found'));
         }
 
         try {
@@ -91,10 +95,7 @@ class ResetPasswordController extends AbstractController
         } catch (ResetPasswordExceptionInterface $e) {
             $this->addFlash(
                 'reset_password_error',
-                sprintf(
-                    'There was a problem validating your reset request - %s',
-                    $e->getReason()
-                )
+                $this->translator->trans('password.reset_password_error', ['reason' => $e->getReason()])
             );
 
             return $this->redirectToRoute('app_forgot_password_request');

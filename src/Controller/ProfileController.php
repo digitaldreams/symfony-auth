@@ -20,10 +20,11 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProfileController extends AbstractController
 {
-    public function __construct(private UpdateProfileService $profileService)
+    public function __construct(private UpdateProfileService $profileService, private TranslatorInterface $translator)
     {
     }
 
@@ -47,7 +48,7 @@ class ProfileController extends AbstractController
             $errors = $validator->validate($updateProfileRequest);
             if (count($errors) === 0) {
                 $this->profileService->execute($updateProfileRequest);
-                $this->addFlash('message', 'Profile successfully updated');
+                $this->addFlash('message', $this->translator->trans('user.profile_updated'));
             }
         }
 

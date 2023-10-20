@@ -18,12 +18,16 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use App\Attribute\FillDto;
 
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 use function Symfony\Component\Translation\t;
 
 class PasswordChangeController extends AbstractController
 {
-    public function __construct(private PasswordChangeService $passwordChangeService)
-    {
+    public function __construct(
+        private PasswordChangeService $passwordChangeService,
+        private TranslatorInterface $translator
+    ) {
     }
 
     #[Route("/app/password/change", name: "password_change", methods: ['GET', 'POST'])]
@@ -38,7 +42,7 @@ class PasswordChangeController extends AbstractController
             $errors = $validator->validate($passwordChangeRequest);
             if (count($errors) == 0) {
                 $this->passwordChangeService->execute($passwordChangeRequest);
-                $this->addFlash('message',t('password.changed_successfully'));
+                $this->addFlash('message', $this->translator->trans('password.changed_successfully'));
                 return $this->redirectToRoute('home');
             }
         }
