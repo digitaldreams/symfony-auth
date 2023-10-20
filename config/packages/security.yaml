@@ -20,13 +20,13 @@ security:
             form_login:
                 login_path: app_login
                 check_path: app_login
-                default_target_path: profile_show
+                default_target_path: /app/profile
                 post_only: true
                 use_referer: true
             logout:
-                path: app_logout
+                path: /logout
                 # where to redirect after logout
-                # target: app_any_route
+                target: app_login
             remember_me:
                 secret:   '%kernel.secret%'
                 lifetime: 604800 # 1 week in seconds
