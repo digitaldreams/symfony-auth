@@ -1,0 +1,5 @@
+'Please enter a password': অনুগ্রহ করে একটি পাসওয়ার্ড লিখুন৷
+'Your password should be at least {{ limit }} characters': আপনার পাসওয়ার্ড কমপক্ষে {{ limit }} অক্ষরের হওয়া উচিত
+'Please enter your email': অনুগ্রহ করে আপনার ইমেইল লিখুন
+'Wrong value for your current password': আপনার বর্তমান পাসওয়ার্ডের জন্য ভুল মান
+Error: ত্রুটি
