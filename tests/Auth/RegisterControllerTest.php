@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Auth;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -31,7 +31,7 @@ class RegisterControllerTest extends WebTestCase
      */
     public function it_show_register_form(): void
     {
-        $crawler = $this->client->request('GET', '/register');
+        $crawler = $this->client->request('GET', '/auth/register');
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Register');
     }
@@ -41,15 +41,15 @@ class RegisterControllerTest extends WebTestCase
      */
     public function a_guest_can_register(): void
     {
-        $crawler = $this->client->request('GET', '/register');
+        $crawler = $this->client->request('GET', '/auth/register');
         $id = uniqid();
         $crawler = $this->client->submitForm('register', [
             'name' => 'Demo user ' . $id,
             'email' => 'demo' . $id . '@test.com',
             'username' => 'demo' . $id,
-            'password' => '123456',
+            'password' => uniqid("I_@#",true),
         ]);
-        $this->assertResponseRedirects('/login');
+        $this->assertResponseRedirects('/auth/login');
 
     }
 

@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Auth;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class PasswordControllerTest extends WebTestCase
+class PasswordResetControllerTest extends WebTestCase
 {
 
     /**
      * @test
      */
-    public function it_show_forget_password_form(): void
+    public function a_guest_can_see_forget_password_form(): void
     {
         $client = static::createClient();
-        $crawler= $client->request('GET','/reset-password');
+        $crawler= $client->request('GET','/auth/password/forget');
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Reset your password');
     }
