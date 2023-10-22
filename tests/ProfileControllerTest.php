@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class ProfileControllerTest extends WebTestCase
 {
     /**
-     * @test 
+     * @test
      * @return void
      * @throws \Exception
      */
@@ -20,7 +20,7 @@ class ProfileControllerTest extends WebTestCase
 
         $client->loginUser($testUser);
 
-        $crawler = $client->request('GET', '/app/password/change');
+        $crawler = $client->request('GET', '/app/profile');
         $this->assertResponseIsSuccessful();
     }
 }
