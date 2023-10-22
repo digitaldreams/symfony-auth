@@ -3,8 +3,8 @@
 namespace App\Service\User;
 
 use App\Entity\User;
+use App\Utils\Validator\UniqueValue;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Validator\UniqueValue;
 
 readonly class CreateUserRequest
 {

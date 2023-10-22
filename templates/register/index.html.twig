@@ -6,7 +6,7 @@
 
     <div class="md:w-1/2 w-full mx-auto">
         <h1 class="text-center">Register</h1>
-        <form  method="post">
+        <form  method="post" id="registerForm">
             <input type="hidden" name="_csrf_token"
                    value="{{ csrf_token('authenticate') }}"
             >

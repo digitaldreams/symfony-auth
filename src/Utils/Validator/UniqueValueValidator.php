@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Validator;
+namespace App\Utils\Validator;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -19,7 +19,7 @@ class UniqueValueValidator extends ConstraintValidator
     ) {
     }
 
-    public function validate(mixed $value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof UniqueValue) {
             throw new UnexpectedTypeException($constraint, UniqueValue::class);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Attribute;
+namespace App\Utils\Attribute;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;

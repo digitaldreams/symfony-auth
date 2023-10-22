@@ -2,14 +2,11 @@
 
 namespace App\Controller;
 
-use App\Attribute\FillDto;
 use App\Service\User\UpdateProfileRequest;
 use App\Service\User\UpdateProfileService;
-use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use App\Utils\Attribute\FillDto;
 use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
@@ -17,8 +14,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
-use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

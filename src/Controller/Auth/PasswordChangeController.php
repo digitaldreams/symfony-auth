@@ -1,26 +1,16 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Auth;
 
 use App\Service\Password\PasswordChangeRequest;
 use App\Service\Password\PasswordChangeService;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Utils\Attribute\FillDto;
 use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
-use App\Attribute\FillDto;
-
 use Symfony\Contracts\Translation\TranslatorInterface;
-
-use function Symfony\Component\Translation\t;
 
 class PasswordChangeController extends AbstractController
 {
