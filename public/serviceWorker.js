@@ -1,10 +1,10 @@
 const staticAssets = [
     'offline.html',
     'manifest.json',
-    '/css/app.css',
-    '/js/app.js',
-    '/js/vendor.js',
-    '/js/manifest.js',
+    '/build/app.css',
+    '/build/app.js',
+    //'/js/vendor.js',
+    '/js/runtime.js',
 ];
 //Will cache any url from this domain while fetch
 const dynamicAssetDomain = [
