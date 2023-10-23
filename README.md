@@ -1,5 +1,5 @@
 # symfony5-auth
-Symfony 5 basic authentication system
+Symfony 6 basic authentication system
 
 ### Installation 
 **Step 1**: Setup your `.env` file 
@@ -46,6 +46,8 @@ php bin/phpunit
 6. Admin notify for new user registration
 7. Profile info change for logged in user
 8. Users list page for Admin user. 
+9. Progressive Web Application
+10. Offline Web Application
 
 ### Login Form
 
