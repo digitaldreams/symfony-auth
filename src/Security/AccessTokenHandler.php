@@ -38,8 +38,10 @@ class AccessTokenHandler implements AccessTokenHandlerInterface
             }
             // and return a UserBadge object containing the user identifier from the found token
             return new UserBadge($accessToken->getUser()?->getUsername());
-        } catch (\DomainException $e) {
-            throw new BadCredentialsException('Invalid credentials.');
+        } catch (\UnexpectedValueException $e) {
+            throw new CustomUserMessageAuthenticationException('Invalid Access Token');
+        } catch (\Exception $e) {
+            throw new BadCredentialsException($e->getMessage());
         }
     }
 }
