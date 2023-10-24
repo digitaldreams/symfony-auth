@@ -13,6 +13,11 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api:
+            pattern: ^/api
+            provider: app_user_provider
+            access_token:
+                token_handler: App\Security\AccessTokenHandler
         main:
             lazy: true
             provider: app_user_provider

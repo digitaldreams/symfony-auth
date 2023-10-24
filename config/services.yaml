@@ -6,6 +6,9 @@
 parameters:
     app.admin_email: '%env(resolve:ADMIN_EMAIL)%'
     app.from_email: '%env(resolve:FROM_EMAIL)%'
+    jwt.secret: '%env(resolve:JWT_SECRET)%'
+    jwt.iss: '%env(resolve:JWT_ISS)%'
+    jwt.algorithm: '%env(resolve:JWT_ALGORITHM)%'
 services:
     # default configuration for services in *this* file
     _defaults:
