@@ -31,17 +31,29 @@ class ApiLoginController extends AbstractController
         $user = $this->userRepository->findOneBy(['username' => $username]);
         $expireAt = new \DateTimeImmutable('+24 hours');
         if ($user && $this->hasher->isPasswordValid($user, $password)) {
+            if (is_null($user->getVerifiedAt())) {
+                return $this->json([
+                    'status' => 'error',
+                    'message' => 'Your account is not verified yet.',
+                ]);
+            }
+
             $payload = [
                 'iss' => $this->parameterBag->get('jwt.iss'),
                 'sub' => $user->getUid(),
                 'iat' => (new \DateTimeImmutable())->getTimestamp(),
                 'exp' => $expireAt->getTimestamp()
             ];
-            $jwtToken = JWT::encode($payload, $this->parameterBag->get('jwt.secret'), $this->parameterBag->get('jwt.algorithm'));
+            $jwtToken = JWT::encode(
+                $payload,
+                $this->parameterBag->get('jwt.secret'),
+                $this->parameterBag->get('jwt.algorithm')
+            );
             $this->accessTokenRepository->save($jwtToken, $user);
 
             return $this->json([
-                "username" => $username,
+                'status' => 'success',
+                'user_id' => $user->getUid(),
                 "token" => $jwtToken,
                 'expire_at' => $expireAt->format('c')
             ]);
