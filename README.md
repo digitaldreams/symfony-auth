@@ -1,4 +1,4 @@
-# symfony5-auth
+# Symfony auth
 Symfony 6 basic authentication system
 
 ### Installation 

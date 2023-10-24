@@ -4,45 +4,63 @@ namespace App\Entity;
 
 use App\Persistence\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Uid\Uuid;
+use Symfony\Bridge\Doctrine\Types\UuidType;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity("username")]
-#[UniqueEntity("email")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
+
+    #[ORM\Column(type: "integer")]
     #[ORM\Id()]
     #[ORM\GeneratedValue()]
-    #[ORM\Column(type: "integer")]
     private $id;
 
-    #[ORM\Column(type:"string", length:191)]
+    #[ORM\Column(type: UuidType::NAME, unique: true)]
+    private Uuid $uid;
+    #[ORM\Column(type: "string", length: 191)]
     private $name;
 
-    #[ORM\Column(type:"string", length:180, unique:true)]
+    #[ORM\Column(type: "string", length: 180, unique: true)]
     #[Assert\NotBlank]
     private $username;
 
-    #[ORM\Column(type:"string", length:191,unique:true)]
+    #[ORM\Column(type: "string", length: 191, unique: true)]
     #[Assert\Email]
     #[Assert\NotBlank]
     private $email;
 
-    #[ORM\Column(type:"string", length:255, nullable:true)]
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
     private $avatar;
 
-    #[ORM\Column(type:"json")]
+    #[ORM\Column(type: "json")]
     private $roles = [];
 
-    #[ORM\Column(type:"string")]
+    #[ORM\Column(type: "string")]
     private $password;
+    #[ORM\Column(type: "datetime_immutable", nullable: true)]
+    private ?\DateTimeImmutable $verifiedAt = null;
+    #[ORM\Column(type: "datetime_immutable", nullable: false)]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->uid = Uuid::v7();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUid():?Uuid
+    {
+        return $this->uid;
     }
 
     /**
@@ -116,7 +134,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
-         $this->password = null;
+        $this->password = null;
     }
 
     public function getEmail(): ?string
@@ -153,5 +171,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->name = $name;
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function getVerifiedAt(): ?\DateTimeImmutable
+    {
+        return $this->verifiedAt;
     }
 }
