@@ -43,7 +43,7 @@ class ApiLoginController extends AbstractController
             return $this->json([
                 "username" => $username,
                 "token" => $jwtToken,
-                'expire_at' => $expireAt->format('Y-m-d H:i:s')
+                'expire_at' => $expireAt->format('c')
             ]);
         } else {
             return $this->json(['error' => 'User or password is not match']);

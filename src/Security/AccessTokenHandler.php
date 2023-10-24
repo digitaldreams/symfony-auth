@@ -9,7 +9,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-use DomainException;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
 class AccessTokenHandler implements AccessTokenHandlerInterface
 {
@@ -26,6 +26,10 @@ class AccessTokenHandler implements AccessTokenHandlerInterface
                 $accessToken,
                 new Key($this->parameterBag->get('jwt.secret'), $this->parameterBag->get('jwt.algorithm'))
             );
+
+            if ((new \DateTimeImmutable())->setTimestamp($decoded->exp) < new \DateTimeImmutable()) {
+                throw new CustomUserMessageAuthenticationException('Token Expired');
+            }
 
             // return $decoded;
             $accessToken = $this->repository->findOneByToken($accessToken);
