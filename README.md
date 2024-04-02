@@ -18,7 +18,7 @@ php bin/console doctrine:database:create
 **Step 3**:  Lets run the migrations. 
 
 ```
-php bin/console doctrine:migrations:migrate
+php bin/console doctrine:schema:update -f
 php bin/console doctrine:fixtures:load
 ```
 
