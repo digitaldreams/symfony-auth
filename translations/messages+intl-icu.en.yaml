@@ -12,8 +12,8 @@ password:
   send_email_btn: Send password reset email
   reset_password_error: There was a problem validating your reset request - {reason}
   no_token_found: No reset password token found in the URL or in the session.
+  too_many_requests: Too many requests, please try again later.
 
 user:
   profile_updated: Profile successfully updated
   registration_successful: Registration completed successfully
-
