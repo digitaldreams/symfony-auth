@@ -15,7 +15,7 @@ class UniqueValue extends Constraint
         public string $repositoryMethod = '',
         public bool $currentUser = false,
         public ?string $message = '"{{ string }}" This value is already used.',
-        array $groups = null,
+        ?array $groups = null,
         $payload = null
     ) {
         parent::__construct([], $groups, $payload);
