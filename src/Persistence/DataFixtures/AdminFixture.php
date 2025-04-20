@@ -9,12 +9,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AdminFixture extends Fixture
 {
-    protected $passwordEncoder;
+    private UserPasswordHasherInterface $passwordEncoder;
 
     /**
      * UserFixture constructor.
      *
-     * @param \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder
+     * @param UserPasswordHasherInterface $passwordEncoder
      */
     public function __construct(UserPasswordHasherInterface $passwordEncoder)
     {
@@ -22,9 +22,9 @@ class AdminFixture extends Fixture
     }
 
     /**
-     * @param \Doctrine\Persistence\ObjectManager $manager
+     * @param ObjectManager $manager
      */
-    public function load(ObjectManager $manager):void
+    public function load(ObjectManager $manager): void
     {
         $admin = new User();
         $admin->setName('System Admin');
@@ -40,7 +40,7 @@ class AdminFixture extends Fixture
         $user->setName('System User');
         $user->setEmail('user@user.com');
         $user->setUsername('user');
-        $user->setPassword($this->passwordEncoder->hashPassword($admin, 'user'));
+        $user->setPassword($this->passwordEncoder->hashPassword($user, 'user'));
         $user->setRoles(['ROLE_USER']);
         $manager->persist($user);
         $manager->flush();
