@@ -32,4 +32,4 @@ composer.lock
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
-app_app_files.txt
+all_app_files.txt
