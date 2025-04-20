@@ -24,7 +24,7 @@ class AdminFixture extends Fixture
     /**
      * @param \Doctrine\Persistence\ObjectManager $manager
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager):void
     {
         $admin = new User();
         $admin->setName('System Admin');
