@@ -4,6 +4,8 @@ framework:
     csrf_protection: true
     http_method_override: true
     handle_all_throwables: true
+    serializer:
+        enabled: true
     validation:
         enabled: true
         enable_attributes: true
